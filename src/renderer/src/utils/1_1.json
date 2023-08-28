@@ -1,0 +1,152 @@
+[
+    {
+        "index": 1,
+        "url": "nanchangqiyi",
+        "choose": [
+            {
+                "title": "A",
+                "des": "南昌起义"
+            },
+            {
+                "title": "B",
+                "des": "秋收起义"
+            }
+        ],
+        "answer": "A"
+    },
+    {
+        "index": 2,
+        "url": "qiushouqiyi",
+        "choose": [
+            {
+                "title": "A",
+                "des": "武昌起义"
+            },
+            {
+                "title": "B",
+                "des": "秋收起义"
+            }
+        ],
+        "answer": "B"
+    },
+    {
+        "index": 3,
+        "url": "jinggangshan",
+        "choose": [
+            {
+                "title": "A",
+                "des": "建立井冈山革命根据地"
+            },
+            {
+                "title": "B",
+                "des": "万里长征"
+            }
+        ],
+        "answer": "A"
+    },
+    {
+        "index": 4,
+        "url": "changzheng",
+        "choose": [
+            {
+                "title": "A",
+                "des": "南昌起义"
+            },
+            {
+                "title": "B",
+                "des": "万里长征"
+            }
+        ],
+        "answer": "B"
+    },
+    {
+        "index": 5,
+        "url": "kaiguodadian",
+        "choose": [
+            {
+                "title": "A",
+                "des": "开国大典"
+            },
+            {
+                "title": "B",
+                "des": "万里长征"
+            }
+        ],
+        "answer": "A"
+    },
+    {
+        "index": 6,
+        "url": "tudigaige",
+        "choose": [
+            {
+                "title": "A",
+                "des": "南昌起义"
+            },
+            {
+                "title": "B",
+                "des": "土地革命"
+            }
+        ],
+        "answer": "B"
+    },
+    {
+        "index": 7,
+        "url": "nanfangtanhua",
+        "choose": [
+            {
+                "title": "A",
+                "des": "邓小平南方谈话"
+            },
+            {
+                "title": "B",
+                "des": "开国大典"
+            }
+        ],
+        "answer": "A"
+    },
+    {
+        "index": 8,
+        "url": "sangedaibiao",
+        "choose": [
+            {
+                "title": "A",
+                "des": "“三个代表”重要思想"
+            },
+            {
+                "title": "B",
+                "des": "邓小平南方谈话"
+            }
+        ],
+        "answer": "A"
+    },
+    {
+        "index": 9,
+        "url": "kexuefazhanguan",
+        "choose": [
+            {
+                "title": "A",
+                "des": "科学发展观"
+            },
+            {
+                "title": "B",
+                "des": "“三个代表”重要思想"
+            }
+        ],
+        "answer": "A"
+    },
+    {
+        "index": 10,
+        "url": "weidafuxing",
+        "choose": [
+            {
+                "title": "A",
+                "des": "科学发展观"
+            },
+            {
+                "title": "B",
+                "des": "实现中华民族伟大复兴的中国梦"
+            }
+        ],
+        "answer": "B"
+    }
+]
