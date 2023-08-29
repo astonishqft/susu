@@ -59,15 +59,15 @@ const next = () => {
   }
 
   currentIndex.value = currentIndex.value + 1
+  isConfirm.value = true
 
   // 完成第一关所有题目
   if (currentIndex.value === 4) {
     setTimeout(() => {
       router.push('/firstEnd')
+      isConfirm.value = false
     }, 1000)
   } else {
-    isConfirm.value = true
-
     // 第二步先将选中状态置位
     selectList.value = []
 
