@@ -2,7 +2,7 @@
 import { useRouter } from 'vue-router'
 import { ref, onMounted, onUnmounted } from 'vue'
 import cloneDeep from 'lodash/cloneDeep'
-import { myRandom } from '../utils/utils'
+import { myRandom, equar } from '../utils/utils'
 import data from '../utils/1_3.json'
 
 import rightIcon from '/select.png?url'
@@ -13,7 +13,7 @@ const currentTime = ref(60)
 const selected = ref([])
 const currentIndex = ref(0) // 当前做到了第几题
 const answerList = ref([]) // 选项列表
-const chooseResult = ref(null) // 选择结果
+// const chooseResult = ref(null) // 选择结果
 const rightAnswer = ref('') // 每题的正确答案
 const choosedAnswer = ref('') // 当前选择的答案
 
@@ -23,6 +23,7 @@ const isConfirm = ref(false)
 
 // 当前选中的答案列表项
 const selectList = ref([])
+const selectList2 = ref([])
 
 const rightCount = ref(0)
 const wrongCount = ref(0)
@@ -39,7 +40,7 @@ onMounted(() => {
 // 下一题
 const next = () => {
   // 第一步，先判断对错
-  if (selectList.value === rightAnswer.value) {
+  if (equar(selectList.value, rightAnswer.value)) {
     isRight.value = true
     rightCount.value = rightCount.value + 1
   } else {
@@ -49,37 +50,40 @@ const next = () => {
 
   // 如果答错大于等于3题，那么就返回第三关入口重新答题
   if (wrongCount.value === 3) {
-    dialogVisible.value = false
-    router.push('/firstEnter')
+    dialogVisible.value = true
+    setTimeout(() => {
+      dialogVisible.value = false
+      router.push('/firstEnter')
+    }, 5000)
   }
 
   currentIndex.value = currentIndex.value + 1
 
+  // 完成第一关所有题目
   if (currentIndex.value === 4) {
-    alert("恭喜您完成所有答题")
     setTimeout(() => {
-      router.push('/choose')
-    }, 5000)
+      router.push('/firstEnd')
+    }, 1000)
+  } else {
+    isConfirm.value = true
+
+    // 第二步先将选中状态置位
+    selectList.value = []
+
+    setTimeout(() => {
+      // 将上一题的选中状态置位
+      isConfirm.value = false
+
+      // 切换到下一题
+      if (currentIndex.value < 4) {
+        reset()
+        changeSubject()
+        selectList2.value = []
+      } else {
+        // alert('恭喜你答题结束')
+      }
+    }, 1000)
   }
-
-  isConfirm.value = true
-
-  // 第二步先将选中状态置位
-  selectList.value = []
-
-  setTimeout(() => {
-    // 将上一题的选中状态置位
-    isConfirm.value = false
-
-    // 切换到下一题
-    if (currentIndex.value < 5) {
-      reset()
-      changeSubject()
-    } else {
-      alert('恭喜你答题结束')
-    }
-  }, 1000)
-
 }
 
 const reset = () => {
@@ -95,6 +99,8 @@ const choose = (a) => {
     selectList.value.push(a)
     selectList.value.sort()
   }
+
+  selectList2.value = selectList.value
 }
 
 // 切换题目
@@ -150,7 +156,7 @@ const goHome = () => {
           :class="{
             choosed: selectList.includes(a.title),
             right: rightAnswer.includes(a.title) && isConfirm,
-            wrong: !rightAnswer.includes(a.title) && isConfirm
+            wrong: !rightAnswer.includes(a.title) && !selectList2.includes(a.title) && isConfirm
           }"
           class="answer-item"
           @click="choose(a.title)"
@@ -159,12 +165,17 @@ const goHome = () => {
           <img
             class="icon"
             :src="rightIcon"
-            :style="{ display: a.title === rightAnswer && choosedAnswer ? 'block' : 'none' }"
+            :style="{ display: rightAnswer.includes(a.title) && isConfirm ? 'block' : 'none' }"
           />
           <img
             class="icon"
             :src="wrongIcon"
-            :style="{ display: !chooseResult && a.title === choosedAnswer ? 'block' : 'none' }"
+            :style="{
+              display:
+                !rightAnswer.includes(a.title) && !selectList2.includes(a.title) && isConfirm
+                  ? 'block'
+                  : 'none'
+            }"
           />
         </div>
       </div>

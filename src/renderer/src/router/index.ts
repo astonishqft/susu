@@ -12,6 +12,7 @@ import FirstTwoEnter from '../views/firstTwoEnter.vue'
 import FirstTwoDetail from '../views/firstTwoDetail.vue'
 import FirstThreeEnter from '../views/firstThreeEnter.vue'
 import FirstThreeDetail from '../views/firstThreeDetail.vue'
+import FirstEnd from '../views/firstEnd.vue'
 
 const router = createRouter({
   history: createWebHashHistory(),
@@ -76,6 +77,11 @@ const router = createRouter({
       path: '/firstThreeDetail',
       name: 'FirstThreeDetail',
       component: FirstThreeDetail
+    },
+    {
+      path: '/firstEnd',
+      name: 'FirstEnd',
+      component: FirstEnd
     }
   ]
 })
