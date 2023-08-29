@@ -57,6 +57,7 @@ onMounted(() => {
 
 const choose = (a) => {
   // 如果选择的选项正确
+  currentTime.value = 60
   choosedAnswer.value = a
   if (a === rightAnswer.value) {
     chooseResult.value = true

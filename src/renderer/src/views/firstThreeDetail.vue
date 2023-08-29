@@ -40,6 +40,7 @@ onMounted(() => {
 // 下一题
 const next = () => {
   // 第一步，先判断对错
+  currentTime.value = 60
   if (equar(selectList.value, rightAnswer.value)) {
     isRight.value = true
     rightCount.value = rightCount.value + 1

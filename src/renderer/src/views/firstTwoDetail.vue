@@ -33,6 +33,7 @@ onMounted(() => {
 
 const choose = (a) => {
   // 如果选择的选项正确
+  currentTime.value = 60
   choosedAnswer.value = a
   if (a === rightAnswer.value) {
     chooseResult.value = true
@@ -54,8 +55,8 @@ const choose = (a) => {
 
   currentIndex.value = currentIndex.value + 1
 
-  // 答对5题直接进入下一个环节
-  if (rightCount.value === 5) {
+  // 答完5题直接进入下一个环节
+  if (currentIndex.value === 5) {
     setTimeout(() => {
       router.push('/firstThreeEnter')
     }, 1000)
