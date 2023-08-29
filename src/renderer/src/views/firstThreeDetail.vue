@@ -1,6 +1,7 @@
 <script setup>
 import { useRouter } from 'vue-router'
-import { ref, onMounted, onUnmounted, reactive } from 'vue'
+import { ref, onMounted, onUnmounted } from 'vue'
+import cloneDeep from 'lodash/cloneDeep'
 import { myRandom } from '../utils/utils'
 import data from '../utils/1_3.json'
 
@@ -30,10 +31,8 @@ const subject = ref(null) // 题目
 const dialogVisible = ref(false)
 
 onMounted(() => {
-  selected.value = myRandom(data, 5)
-
+  selected.value = myRandom(cloneDeep(data), 5)
   currentIndex.value = 0
-
   changeSubject()
 })
 
@@ -72,6 +71,7 @@ const next = () => {
 
     // 切换到下一题
     if (currentIndex.value < 5) {
+      reset()
       changeSubject()
     } else {
       alert('恭喜你答题结束')
@@ -93,36 +93,6 @@ const choose = (a) => {
     selectList.value.push(a)
     selectList.value.sort()
   }
-
-  // if (a === rightAnswer.value) {
-  //   chooseResult.value = true
-  //   rightCount.value = rightCount.value + 1
-  // } else {
-  //   chooseResult.value = false
-  //   wrongCount.value = wrongCount.value + 1
-  // }
-
-  // 如果错题数超过3次，则重新开始答题
-  // if (wrongCount.value === 3) {
-  //   dialogVisible.value = true
-  //   setTimeout(() => {
-  //     dialogVisible.value = false
-  //     router.push('/firstEnter')
-  //   }, 5000)
-  //   return
-  // }
-
-  // 答完5题直接进入下一个环节
-  // if (currentIndex.value === 4) {
-  //   router.push('/firstThreeEnter')
-  // }
-
-  // setTimeout(() => {
-  //   // 切换到下一题
-  //   currentIndex.value = currentIndex.value + 1
-  //   reset()
-  //   changeSubject()
-  // }, 1000)
 }
 
 // 切换题目

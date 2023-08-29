@@ -1,6 +1,7 @@
 <script setup>
 import { useRouter } from 'vue-router'
 import { ref, onMounted, onUnmounted } from 'vue'
+import cloneDeep from 'lodash/cloneDeep'
 import { myRandom } from '../utils/utils'
 import data from '../utils/1_1.json'
 
@@ -47,16 +48,12 @@ const imgUrl = ref(null)
 const dialogVisible = ref(false)
 
 onMounted(() => {
-  selected.value = myRandom(data, 5)
+  selected.value = myRandom(cloneDeep(data), 5)
 
   currentIndex.value = 0
 
   changeSubject()
 })
-
-const reset = () => {
-  choosedAnswer.value = null
-}
 
 const choose = (a) => {
   // 如果选择的选项正确
