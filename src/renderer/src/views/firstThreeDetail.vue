@@ -8,7 +8,7 @@ import data from '../utils/1_3.json'
 import rightIcon from '/select.png?url'
 import wrongIcon from '/wrong.png?url'
 
-const currentTime = ref(60000)
+const currentTime = ref(60)
 
 const selected = ref([])
 const currentIndex = ref(0) // 当前做到了第几题
@@ -52,6 +52,8 @@ const next = () => {
     dialogVisible.value = false
     router.push('/firstEnter')
   }
+
+  currentIndex.value = currentIndex.value + 1
 
   if (currentIndex.value === 4) {
     alert("恭喜您完成所有答题")
