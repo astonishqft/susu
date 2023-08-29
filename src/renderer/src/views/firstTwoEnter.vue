@@ -13,18 +13,10 @@ const start = () => {
       <div class="sub-title">第二关·认真选</div>
     </div>
     <div class="description">
-      <div class="inner">
-        关卡说明：单选题，请选出正确的选项
-      </div>
+      <div class="inner">关卡说明：单选题，请选出正确的选项</div>
     </div>
     <div class="button-wrap">
-      <el-button
-        round
-        size="large"
-        type="primary"
-        class="start-btn"
-        @click="start()"
-      >
+      <el-button round size="large" type="primary" class="start-btn" @click="start()">
         第二关开启
       </el-button>
     </div>

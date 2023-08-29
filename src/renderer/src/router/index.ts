@@ -11,6 +11,7 @@ import FirstOneDetail from '../views/firstOneDetail.vue' // 党史大闯关·第
 import FirstTwoEnter from '../views/firstTwoEnter.vue'
 import FirstTwoDetail from '../views/firstTwoDetail.vue'
 import FirstThreeEnter from '../views/firstThreeEnter.vue'
+import FirstThreeDetail from '../views/firstThreeDetail.vue'
 
 const router = createRouter({
   history: createWebHashHistory(),
@@ -70,6 +71,11 @@ const router = createRouter({
       path: '/firstThreeEnter',
       name: 'FirstThreeEnter',
       component: FirstThreeEnter
+    },
+    {
+      path: '/firstThreeDetail',
+      name: 'FirstThreeDetail',
+      component: FirstThreeDetail
     }
   ]
 })

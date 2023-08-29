@@ -3,7 +3,7 @@ import { useRouter } from 'vue-router'
 
 const router = useRouter()
 const start = () => {
-  router.push('/firstTwoDetail')
+  router.push('/firstThreeDetail')
 }
 </script>
 <template>
@@ -13,18 +13,10 @@ const start = () => {
       <div class="sub-title">第三关·认真选</div>
     </div>
     <div class="description">
-      <div class="inner">
-        关卡说明：多选题，请选出正确的选项
-      </div>
+      <div class="inner">关卡说明：多选题，请选出正确的选项</div>
     </div>
     <div class="button-wrap">
-      <el-button
-        round
-        size="large"
-        type="primary"
-        class="start-btn"
-        @click="start()"
-      >
+      <el-button round size="large" type="primary" class="start-btn" @click="start()">
         第三关开启
       </el-button>
     </div>

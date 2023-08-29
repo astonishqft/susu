@@ -1,37 +1,13 @@
 <script setup>
 import { useRouter } from 'vue-router'
-import { ref, onMounted, onUnmounted } from 'vue'
+import { ref, onMounted, onUnmounted, reactive } from 'vue'
 import { myRandom } from '../utils/utils'
-import data from '../utils/1_1.json'
-
-import changzheng from '/dangshi/changzheng.png?url'
-import jinggangshan from '/dangshi/jinggangshan.png?url'
-import kaiguodadian from '/dangshi/kaiguodadian.png?url'
-import kexuefazhanguan from '/dangshi/kexuefazhanguan.png?url'
-import nanchangqiyi from '/dangshi/nanchangqiyi.png?url'
-import nanfangtanhua from '/dangshi/nanfangtanhua.png?url'
-import qiushouqiyi from '/dangshi/qiushouqiyi.png?url'
-import sangedaibiao from '/dangshi/sangedaibiao.png?url'
-import tudigaige from '/dangshi/tudigaige.png?url'
-import weidafuxing from '/dangshi/weidafuxing.png?url'
+import data from '../utils/1_3.json'
 
 import rightIcon from '/select.png?url'
 import wrongIcon from '/wrong.png?url'
 
-const imgDir = {
-  changzheng,
-  jinggangshan,
-  kaiguodadian,
-  kexuefazhanguan,
-  nanchangqiyi,
-  nanfangtanhua,
-  qiushouqiyi,
-  sangedaibiao,
-  tudigaige,
-  weidafuxing
-}
-
-const currentTime = ref(60)
+const currentTime = ref(60000)
 
 const selected = ref([])
 const currentIndex = ref(0) // 当前做到了第几题
@@ -40,10 +16,17 @@ const chooseResult = ref(null) // 选择结果
 const rightAnswer = ref('') // 每题的正确答案
 const choosedAnswer = ref('') // 当前选择的答案
 
+const isRight = ref(false) // 是否答题正确
+
+const isConfirm = ref(false)
+
+// 当前选中的答案列表项
+const selectList = ref([])
+
 const rightCount = ref(0)
 const wrongCount = ref(0)
 
-const imgUrl = ref(null)
+const subject = ref(null) // 题目
 const dialogVisible = ref(false)
 
 onMounted(() => {
@@ -54,6 +37,49 @@ onMounted(() => {
   changeSubject()
 })
 
+// 下一题
+const next = () => {
+  // 第一步，先判断对错
+  if (selectList.value === rightAnswer.value) {
+    isRight.value = true
+    rightCount.value = rightCount.value + 1
+  } else {
+    isRight.value = false
+    wrongCount.value = wrongCount.value + 1
+  }
+
+  // 如果答错大于等于3题，那么就返回第三关入口重新答题
+  if (wrongCount.value === 3) {
+    dialogVisible.value = false
+    router.push('/firstEnter')
+  }
+
+  if (currentIndex.value === 4) {
+    alert("恭喜您完成所有答题")
+    setTimeout(() => {
+      router.push('/choose')
+    }, 5000)
+  }
+
+  isConfirm.value = true
+
+  // 第二步先将选中状态置位
+  selectList.value = []
+
+  setTimeout(() => {
+    // 将上一题的选中状态置位
+    isConfirm.value = false
+
+    // 切换到下一题
+    if (currentIndex.value < 5) {
+      changeSubject()
+    } else {
+      alert('恭喜你答题结束')
+    }
+  }, 1000)
+
+}
+
 const reset = () => {
   choosedAnswer.value = null
 }
@@ -61,44 +87,48 @@ const reset = () => {
 const choose = (a) => {
   // 如果选择的选项正确
   choosedAnswer.value = a
-  if (a === rightAnswer.value) {
-    chooseResult.value = true
-    rightCount.value = rightCount.value + 1
+  if (selectList.value.includes(a)) {
+    selectList.value = selectList.value.filter((item) => item !== a).sort()
   } else {
-    chooseResult.value = false
-    wrongCount.value = wrongCount.value + 1
+    selectList.value.push(a)
+    selectList.value.sort()
   }
+
+  // if (a === rightAnswer.value) {
+  //   chooseResult.value = true
+  //   rightCount.value = rightCount.value + 1
+  // } else {
+  //   chooseResult.value = false
+  //   wrongCount.value = wrongCount.value + 1
+  // }
 
   // 如果错题数超过3次，则重新开始答题
-  if (wrongCount.value === 3) {
-    dialogVisible.value = true
-    setTimeout(() => {
-      dialogVisible.value = false
-      router.push('/firstEnter')
-    }, 5000)
-    return
-  }
-
-  currentIndex.value = currentIndex.value + 1
+  // if (wrongCount.value === 3) {
+  //   dialogVisible.value = true
+  //   setTimeout(() => {
+  //     dialogVisible.value = false
+  //     router.push('/firstEnter')
+  //   }, 5000)
+  //   return
+  // }
 
   // 答完5题直接进入下一个环节
-  if (currentIndex.value === 5) {
-    setTimeout(() => {
-      router.push('/firstTwoEnter')
-    }, 1000)
-  } else {
-    setTimeout(() => {
-      // 切换到下一题
-      choosedAnswer.value = null
-      changeSubject()
-    }, 1000)
-  }
+  // if (currentIndex.value === 4) {
+  //   router.push('/firstThreeEnter')
+  // }
+
+  // setTimeout(() => {
+  //   // 切换到下一题
+  //   currentIndex.value = currentIndex.value + 1
+  //   reset()
+  //   changeSubject()
+  // }, 1000)
 }
 
 // 切换题目
 const changeSubject = () => {
   const curr = selected.value[currentIndex.value]
-  imgUrl.value = imgDir[curr.url]
+  subject.value = curr.desc
   answerList.value = curr.choose
   rightAnswer.value = curr.answer
 }
@@ -127,47 +157,47 @@ const goHome = () => {
 }
 </script>
 <template>
-  <div style="height: 100%" class="firstOneDetail">
+  <div style="height: 100%" class="firstThreeDetail">
     <div class="title">
       <div class="goHome" @click="goHome">回到首页</div>
       <div class="main-title">党史大闯关</div>
-      <div class="sub-title">第一关·仔细看</div>
+      <div class="sub-title">第三关·认真选</div>
     </div>
     <div class="tool">
       <div class="time">倒计时：{{ currentTime }}</div>
       <div class="error">错题数：{{ wrongCount }}</div>
     </div>
     <div class="content">
-      <div class="img-wrapper">
-        <img :src="imgUrl" />
+      <div class="subject">
+        {{ subject }}
       </div>
       <div class="answers-wrapper">
         <div
           v-for="a in answerList"
           :key="a.title"
           :class="{
-            right: a.title === rightAnswer && choosedAnswer,
-            wrong: !chooseResult && a.title === choosedAnswer
+            choosed: selectList.includes(a.title),
+            right: rightAnswer.includes(a.title) && isConfirm,
+            wrong: !rightAnswer.includes(a.title) && isConfirm
           }"
           class="answer-item"
-          @click="choose(a.title, a)"
+          @click="choose(a.title)"
         >
           {{ a.title }}.{{ a.des }}
           <img
             class="icon"
             :src="rightIcon"
-            :style="{
-              display: a.title === rightAnswer && choosedAnswer ? 'block' : 'none'
-            }"
+            :style="{ display: a.title === rightAnswer && choosedAnswer ? 'block' : 'none' }"
           />
           <img
             class="icon"
             :src="wrongIcon"
-            :style="{
-              display: !chooseResult && a.title === choosedAnswer ? 'block' : 'none'
-            }"
+            :style="{ display: !chooseResult && a.title === choosedAnswer ? 'block' : 'none' }"
           />
         </div>
+      </div>
+      <div class="confirm-btn">
+        <el-button type="primary" class="start-btn" @click="next()">确定</el-button>
       </div>
     </div>
     <el-dialog v-model="dialogVisible" title="提示信息">
@@ -176,7 +206,7 @@ const goHome = () => {
   </div>
 </template>
 <style lang="less">
-.firstOneDetail {
+.firstThreeDetail {
   background: url(/home_bg.jpg) no-repeat;
   background-repeat: no-repeat;
   background-size: 100% 100%;
@@ -206,19 +236,22 @@ const goHome = () => {
     }
   }
   .content {
-    // height: 70%;
+    height: 60%;
     flex-direction: column;
     justify-content: center;
     display: flex;
-    .img-wrapper {
-      justify-content: center;
-      display: flex;
+    .subject {
+      color: #fff;
       height: 100%;
+      display: flex;
+      justify-content: center;
       align-items: center;
-      img {
-        width: 600px;
-        height: 450px;
-      }
+      margin: 0 25px;
+    }
+    .confirm-btn {
+      display: flex;
+      justify-content: center;
+      margin-top: 20px;
     }
     .answers-wrapper {
       display: flex;
@@ -233,6 +266,10 @@ const goHome = () => {
         &:hover {
           cursor: pointer;
         }
+      }
+      .answer-item.choosed {
+        background: green;
+        color: #fff;
       }
       .answer-item.right {
         background: green;

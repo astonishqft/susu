@@ -55,17 +55,20 @@ const choose = (a) => {
     return
   }
 
+  currentIndex.value = currentIndex.value + 1
+
   // 答对5题直接进入下一个环节
   if (rightCount.value === 5) {
-    router.push('/firstThreeEnter')
+    setTimeout(() => {
+      router.push('/firstThreeEnter')
+    }, 1000)
+  } else {
+    setTimeout(() => {
+      // 切换到下一题
+      choosedAnswer.value = null
+      changeSubject()
+    }, 1000)
   }
-
-  setTimeout(() => {
-    // 切换到下一题
-    currentIndex.value = currentIndex.value + 1
-    reset()
-    changeSubject()
-  }, 1000)
 }
 
 // 切换题目
@@ -118,22 +121,30 @@ const goHome = () => {
         <div
           v-for="a in answerList"
           :key="a.title"
-          :class="{ right: (a.title === rightAnswer && choosedAnswer), wrong: (!chooseResult && a.title === choosedAnswer) }"
+          :class="{
+            right: a.title === rightAnswer && choosedAnswer,
+            wrong: !chooseResult && a.title === choosedAnswer
+          }"
           class="answer-item"
           @click="choose(a.title, a)"
         >
           {{ a.title }}.{{ a.des }}
-          <img class="icon" :src="rightIcon" :style="{ display: (a.title === rightAnswer && choosedAnswer) ? 'block' : 'none' }" />
-          <img class="icon" :src="wrongIcon" :style="{ display: (!chooseResult && a.title === choosedAnswer) ? 'block' : 'none' }" />
+          <img
+            class="icon"
+            :src="rightIcon"
+            :style="{ display: a.title === rightAnswer && choosedAnswer ? 'block' : 'none' }"
+          />
+          <img
+            class="icon"
+            :src="wrongIcon"
+            :style="{ display: !chooseResult && a.title === choosedAnswer ? 'block' : 'none' }"
+          />
         </div>
       </div>
     </div>
-    <el-dialog
-      v-model="dialogVisible"
-      title="提示信息"
-    >
-    <span>您当前的答题错题数达到3题，请重新答题(5秒后自动跳转到答题页)</span>
-  </el-dialog>
+    <el-dialog v-model="dialogVisible" title="提示信息">
+      <span>您当前的答题错题数达到3题，请重新答题(5秒后自动跳转到答题页)</span>
+    </el-dialog>
   </div>
 </template>
 <style lang="less">
