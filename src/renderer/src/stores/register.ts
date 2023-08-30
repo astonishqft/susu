@@ -9,6 +9,8 @@ export const useRegisterStore = defineStore('register', () => {
 
   // 第一关错题数
   const firstErrorCount = ref(0)
+  // 第二关错题数
+  const secondErrorCount = ref(0)
 
-  return { userName, className, firstErrorCount, firstComplete, secondComplete }
+  return { userName, className, firstErrorCount, secondErrorCount, firstComplete, secondComplete }
 })

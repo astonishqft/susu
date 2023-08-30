@@ -1,39 +1,29 @@
 <script setup>
-import { onMounted } from 'vue'
 import { useRouter } from 'vue-router'
-import { useRegisterStore } from '../stores/register'
 
-const store = useRegisterStore()
 const router = useRouter()
-
-onMounted(() => {
-  // 首先清空错题数
-  store.secondErrorCount = 0
-  store.secondComplete = false
-})
-
 const start = () => {
-  router.push('/secondOneDetail')
+  router.push('/secondThreeDetail')
 }
 </script>
 <template>
-  <div style="height: 100%" class="enter-wrapper">
+  <div style="height: 100%" class="second-three-enter-wrapper">
     <div class="title">
       <div>少先队史大闯关</div>
-      <div class="sub-title">第一关·填一填</div>
+      <div class="sub-title">第三关·认真选</div>
     </div>
     <div class="description">
-      <div class="inner">关卡说明：请根据空格顺序，填选出正确答案</div>
+      <div class="inner">关卡说明：多选题，请选出正确的选项</div>
     </div>
     <div class="button-wrap">
       <el-button round size="large" type="primary" class="start-btn" @click="start()">
-        第一关开启
+        第三关开启
       </el-button>
     </div>
   </div>
 </template>
 <style lang="less">
-.enter-wrapper {
+.second-three-enter-wrapper {
   background: url(/home_bg.jpg) no-repeat;
   background-repeat: no-repeat;
   background-size: 100% 100%;

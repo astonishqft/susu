@@ -28,13 +28,7 @@ const start = () => {
       </div>
     </div>
     <div class="button-wrap">
-      <el-button
-        round
-        size="large"
-        type="primary"
-        class="start-btn"
-        @click="start()"
-      >
+      <el-button round size="large" type="primary" class="start-btn" @click="start()">
         第一关开启
       </el-button>
     </div>

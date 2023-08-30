@@ -1,6 +1,5 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
-// import HomeView from '../views/HomeView.vue';
-import IndexView from '../views/index.vue'
+
 import LoginView from '../views/login.vue'
 import HomeView from '../views/home.vue'
 import RegisterView from '../views/register.vue'
@@ -13,6 +12,12 @@ import FirstTwoDetail from '../views/firstTwoDetail.vue'
 import FirstThreeEnter from '../views/firstThreeEnter.vue'
 import FirstThreeDetail from '../views/firstThreeDetail.vue'
 import FirstEnd from '../views/firstEnd.vue'
+import SecondOneDetail from '../views/secondOneDetail.vue'
+import SecondTwoEnter from '../views/secondTwoEnter.vue'
+import SecondTwoDetail from '../views/secondTwoDetail.vue'
+import SecondThreeEnter from '../views/secondThreeEnter.vue'
+import SecondThreeDetail from '../views/secondThreeDetail.vue'
+import SecondEnd from '../views/secondEnd.vue'
 
 const router = createRouter({
   history: createWebHashHistory(),
@@ -82,12 +87,46 @@ const router = createRouter({
       path: '/firstEnd',
       name: 'FirstEnd',
       component: FirstEnd
+    },
+    {
+      path: '/secondOneDetail',
+      name: 'SecondOneDetail',
+      component: SecondOneDetail
+    },
+    {
+      path: '/secondOneDetail',
+      name: 'SecondOneDetail',
+      component: SecondOneDetail
+    },
+    {
+      path: '/secondTwoEnter',
+      name: 'SecondTwoEnter',
+      component: SecondTwoEnter
+    },
+    {
+      path: '/secondTwoDetail',
+      name: 'SecondTwoDetail',
+      component: SecondTwoDetail
+    },
+    {
+      path: '/secondThreeEnter',
+      name: 'SecondThreeEnter',
+      component: SecondThreeEnter
+    },
+    {
+      path: '/secondThreeDetail',
+      name: 'SecondThreeDetail',
+      component: SecondThreeDetail
+    },
+    {
+      path: '/secondEnd',
+      name: 'SecondEnd',
+      component: SecondEnd
     }
   ]
 })
 
 export default router
-
 // const router = new VueRouter({
 //   routes: [
 //     { path: '/', redirect: '/login' },
@@ -106,4 +145,3 @@ export default router
 //     }
 //   ],
 //   mode: 'history'
-

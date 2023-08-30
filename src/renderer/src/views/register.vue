@@ -7,21 +7,17 @@ const router = useRouter()
 const registerFormRef = ref()
 const store = useRegisterStore()
 const registerForm = reactive({
-  className: '',
   userName: ''
 })
 const rules = reactive({
   userName: [{ required: true, message: '请输入名字！', trigger: 'change' }],
-  className: [{ required: true, message: '请输入班级名！', trigger: 'change' }]
 })
 const submitForm = (formEl) => {
   if (!formEl) return
   formEl.validate((valid) => {
     if (valid) {
-      const className = registerForm.className
       const userName = registerForm.userName
       store.userName = userName
-      store.className = className
       // TODO
       router.push('/choose')
     } else {
@@ -43,9 +39,6 @@ const submitForm = (formEl) => {
         label-width="120px"
         class="register-form"
       >
-        <el-form-item class="label" label="班级名" prop="className" required>
-          <el-input v-model="registerForm.className" autocomplete="off" />
-        </el-form-item>
         <el-form-item class="label" label="姓名" prop="userName" required>
           <el-input v-model="registerForm.userName" autocomplete="off" />
         </el-form-item>
