@@ -187,7 +187,13 @@ const goHome = () => {
         </div>
       </div>
     </div>
-    <el-dialog v-model="dialogVisible" title="提示信息">
+    <el-dialog
+      v-model="dialogVisible"
+      title="提示信息"
+      :close-on-click-modal="false"
+      :close-on-press-escape="false"
+      :show-close="false"
+    >
       <span>您当前的答题错题数达到3题，请重新答题(5秒后自动跳转到答题页)</span>
     </el-dialog>
   </div>
