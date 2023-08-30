@@ -1,7 +1,16 @@
 <script setup>
+import { onMounted } from 'vue'
 import { useRouter } from 'vue-router'
+import { useRegisterStore } from '../stores/register'
 
+const store = useRegisterStore()
 const router = useRouter()
+
+onMounted(() => {
+  // 首先清空错题数
+  store.firstErrorCount = 0
+})
+
 const start = () => {
   router.push('/firstOneDetail')
 }

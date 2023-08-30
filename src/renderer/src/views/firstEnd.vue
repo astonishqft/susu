@@ -1,14 +1,19 @@
 <script setup>
 import { useRouter } from 'vue-router'
+import { useRegisterStore } from '../stores/register'
+
+const store = useRegisterStore()
 
 const router = useRouter()
 const start = () => {
   router.push('/choose')
 }
+
+console.log('总的错题数', store.firstErrorCount)
 </script>
 <template>
   <div style="height: 100%" class="enter-end">
-    <div class="title">恭喜xxx小朋友</div>
+    <div class="title">恭喜{{ store.userName }}小朋友</div>
     <div class="description">“完成党史大闯关”挑战</div>
     <div class="button-wrap">
       <el-button

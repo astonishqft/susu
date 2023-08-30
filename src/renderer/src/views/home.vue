@@ -5,8 +5,6 @@ const router = useRouter()
 const start = () => {
   router.push('/register')
 }
-
-console.log(111)
 </script>
 <template>
   <div style="height: 100%" class="home-wrapper">

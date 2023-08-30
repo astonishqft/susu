@@ -1,9 +1,11 @@
 <script setup>
 import { useRouter } from 'vue-router'
-import { ref, reactive } from 'vue';
+import { ref, reactive } from 'vue'
+import { useRegisterStore } from '../stores/register'
 
 const router = useRouter()
 const registerFormRef = ref()
+const store = useRegisterStore()
 const registerForm = reactive({
   className: '',
   userName: ''
@@ -18,7 +20,8 @@ const submitForm = (formEl) => {
     if (valid) {
       const className = registerForm.className
       const userName = registerForm.userName
-
+      store.userName = userName
+      store.className = className
       // TODO
       router.push('/choose')
     } else {

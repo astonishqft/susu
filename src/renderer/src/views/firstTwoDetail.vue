@@ -2,6 +2,7 @@
 import { useRouter } from 'vue-router'
 import { ref, onMounted, onUnmounted } from 'vue'
 import cloneDeep from 'lodash/cloneDeep'
+import { useRegisterStore } from '../stores/register'
 import { myRandom } from '../utils/utils'
 import data from '../utils/1_2.json'
 
@@ -9,7 +10,7 @@ import rightIcon from '/select.png?url'
 import wrongIcon from '/wrong.png?url'
 
 const currentTime = ref(60)
-
+const store = useRegisterStore()
 const selected = ref([])
 const currentIndex = ref(0) // 当前做到了第几题
 const answerList = ref([]) // 选项列表
@@ -25,9 +26,7 @@ const dialogVisible = ref(false)
 
 onMounted(() => {
   selected.value = myRandom(cloneDeep(data), 5)
-
   currentIndex.value = 0
-
   changeSubject()
 })
 
@@ -58,6 +57,8 @@ const choose = (a) => {
   // 答完5题直接进入下一个环节
   if (currentIndex.value === 5) {
     setTimeout(() => {
+      // 第一关第二个环节答完题后计算总的错题数
+      store.firstErrorCount = store.firstErrorCount + wrongCount.value
       router.push('/firstThreeEnter')
     }, 1000)
   } else {

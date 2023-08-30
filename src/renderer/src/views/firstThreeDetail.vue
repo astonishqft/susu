@@ -2,6 +2,7 @@
 import { useRouter } from 'vue-router'
 import { ref, onMounted, onUnmounted } from 'vue'
 import cloneDeep from 'lodash/cloneDeep'
+import { useRegisterStore } from '../stores/register'
 import { myRandom, equar } from '../utils/utils'
 import data from '../utils/1_3.json'
 
@@ -9,7 +10,7 @@ import rightIcon from '/select.png?url'
 import wrongIcon from '/wrong.png?url'
 
 const currentTime = ref(60)
-
+const store = useRegisterStore()
 const selected = ref([])
 const currentIndex = ref(0) // 当前做到了第几题
 const answerList = ref([]) // 选项列表
@@ -56,33 +57,30 @@ const next = () => {
       dialogVisible.value = false
       router.push('/firstEnter')
     }, 5000)
+    return
   }
 
-  currentIndex.value = currentIndex.value + 1
   isConfirm.value = true
 
   // 完成第一关所有题目
   if (currentIndex.value === 4) {
     setTimeout(() => {
+      // 第一关第三个环节答完题后计算总的错题数
+      store.firstErrorCount = store.firstErrorCount + wrongCount.value
       router.push('/firstEnd')
       isConfirm.value = false
     }, 1000)
   } else {
     // 第二步先将选中状态置位
     selectList.value = []
-
+    currentIndex.value = currentIndex.value + 1
     setTimeout(() => {
       // 将上一题的选中状态置位
       isConfirm.value = false
 
-      // 切换到下一题
-      if (currentIndex.value < 4) {
-        reset()
-        changeSubject()
-        selectList2.value = []
-      } else {
-        // alert('恭喜你答题结束')
-      }
+      reset()
+      changeSubject()
+      selectList2.value = []
     }, 1000)
   }
 }

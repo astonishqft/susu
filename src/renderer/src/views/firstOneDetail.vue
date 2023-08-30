@@ -2,6 +2,7 @@
 import { useRouter } from 'vue-router'
 import { ref, onMounted, onUnmounted } from 'vue'
 import cloneDeep from 'lodash/cloneDeep'
+import { useRegisterStore } from '../stores/register'
 import { myRandom } from '../utils/utils'
 import data from '../utils/1_1.json'
 
@@ -32,6 +33,8 @@ const imgDir = {
   weidafuxing
 }
 
+const store = useRegisterStore()
+
 const currentTime = ref(60)
 
 const selected = ref([])
@@ -49,9 +52,7 @@ const dialogVisible = ref(false)
 
 onMounted(() => {
   selected.value = myRandom(cloneDeep(data), 5)
-
   currentIndex.value = 0
-
   changeSubject()
 })
 
@@ -82,6 +83,8 @@ const choose = (a) => {
   // 答完5题直接进入下一个环节
   if (currentIndex.value === 5) {
     setTimeout(() => {
+      // 第一关第一个环节答完题后计算总的错题数
+      store.firstErrorCount = store.firstErrorCount + wrongCount.value
       router.push('/firstTwoEnter')
     }, 1000)
   } else {
