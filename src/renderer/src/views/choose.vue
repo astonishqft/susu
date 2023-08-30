@@ -15,7 +15,7 @@ const choose = (name) => {
   type.value = name
 }
 const start = () => {
-  const t = type.value;
+  const t = type.value
   if (t === '0') {
     router.push('/firstEnter')
   } else {
