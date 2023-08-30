@@ -23,6 +23,8 @@ const wrongCount = ref(0)
 
 const subject = ref(null) // 题目
 const dialogVisible = ref(false)
+// 是否点击选项了
+const isChoosed = ref(false)
 
 onMounted(() => {
   selected.value = myRandom(cloneDeep(data), 5)
@@ -32,6 +34,7 @@ onMounted(() => {
 
 const choose = (a) => {
   // 如果选择的选项正确
+  isChoosed.value = true
   currentTime.value = 60
   choosedAnswer.value = a
   if (a === rightAnswer.value) {
@@ -76,6 +79,7 @@ const changeSubject = () => {
   subject.value = curr.desc
   answerList.value = curr.choose
   rightAnswer.value = curr.answer
+  isChoosed.value = false
 }
 
 onUnmounted(() => {
@@ -211,6 +215,9 @@ const goHome = () => {
       display: flex;
       justify-content: center;
       margin-top: 20px;
+      .disabled {
+        pointer-events: none;
+      }
       .answer-item {
         background: #fff;
         padding: 10px 15px 10px 15px;

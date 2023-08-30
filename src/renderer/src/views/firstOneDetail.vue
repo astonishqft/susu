@@ -47,6 +47,9 @@ const choosedAnswer = ref('') // 当前选择的答案
 const rightCount = ref(0)
 const wrongCount = ref(0)
 
+// 是否点击选项了
+const isChoosed = ref(false)
+
 const imgUrl = ref(null)
 const dialogVisible = ref(false)
 
@@ -58,6 +61,7 @@ onMounted(() => {
 
 const choose = (a) => {
   // 如果选择的选项正确
+  isChoosed.value = true
   currentTime.value = 60
   choosedAnswer.value = a
   if (a === rightAnswer.value) {
@@ -102,6 +106,7 @@ const changeSubject = () => {
   imgUrl.value = imgDir[curr.url]
   answerList.value = curr.choose
   rightAnswer.value = curr.answer
+  isChoosed.value = false
 }
 
 onUnmounted(() => {
@@ -158,7 +163,8 @@ const goHome = () => {
           :key="a.title"
           :class="{
             right: a.title === rightAnswer && choosedAnswer,
-            wrong: !chooseResult && a.title === choosedAnswer
+            wrong: !chooseResult && a.title === choosedAnswer,
+            disabled: isChoosed
           }"
           class="answer-item"
           @click="choose(a.title, a)"
@@ -242,6 +248,9 @@ const goHome = () => {
       display: flex;
       justify-content: center;
       margin-top: 20px;
+      .disabled {
+        pointer-events: none;
+      }
       .answer-item {
         background: #fff;
         padding: 10px 15px 10px 15px;

@@ -165,6 +165,7 @@ const goHome = () => {
           :class="{
             choosed: selectList.includes(a.title),
             right: rightAnswer.includes(a.title) && isConfirm,
+            disabled: isConfirm,
             wrong: !rightAnswer.includes(a.title) && !selectList2.includes(a.title) && isConfirm
           }"
           class="answer-item"
@@ -258,6 +259,9 @@ const goHome = () => {
       display: flex;
       justify-content: center;
       margin-top: 20px;
+      .disabled {
+        pointer-events: none;
+      }
       .answer-item {
         background: #fff;
         padding: 10px 15px 10px 15px;
