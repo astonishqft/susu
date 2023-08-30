@@ -14,6 +14,11 @@ const router = useRouter()
 const choose = (name) => {
   type.value = name
 }
+
+const goHome = () => {
+  router.push('/home')
+}
+
 const start = () => {
   const t = type.value
   if (t === '0') {
@@ -29,25 +34,34 @@ const start = () => {
     <div class="content">
       <div class="choose-name">请选择关卡</div>
       <div class="answer-card-wrapper">
-        <div class="card" @click="choose('0')">
-          <img v-if="type === '0'" :src="selectIcon" alt="0" />
+        <div class="card" :class="{ complete: store.firstComplete }" @click="choose('0')">
+          <img
+            v-if="type === '0'"
+            :src="selectIcon"
+            alt="0"
+            :class="{ none: store.firstComplete }"
+          />
+          <div :class="{ show: store.firstComplete }" class="tag">已通过</div>
           党史大闯关
         </div>
         <div class="card" @click="choose('1')">
-          <img v-if="type === '1'" :src="selectIcon" alt="1" />
+          <img
+            v-if="type === '1'"
+            :src="selectIcon"
+            alt="1"
+            :class="{ none: store.secondComplete }"
+          />
           少先队史大闯关
+          <div :class="{ show: store.secondComplete }" class="tag">已通过</div>
         </div>
       </div>
     </div>
     <div class="btn">
-      <el-button
-        round
-        size="large"
-        type="primary"
-        class="start-btn"
-        @click="start()"
-      >
+      <el-button round size="large" type="primary" class="start-btn" @click="start()">
         闯关开始
+      </el-button>
+      <el-button round size="large" type="primary" class="start-btn" @click="goHome()">
+        返回首页
       </el-button>
     </div>
   </div>
@@ -62,11 +76,13 @@ const start = () => {
   flex-direction: column;
   justify-content: space-between;
   .title {
-    height: 40px;
+    height: 60px;
     color: #fff;
     margin-left: 10px;
-    margin-top: 15px;
+    margin-top: 35px;
+    font-size: 32px;
     display: flex;
+    justify-content: center;
     align-items: center;
     font-size: 32px;
   }
@@ -77,11 +93,34 @@ const start = () => {
     justify-content: center;
     .choose-name {
       color: #fff;
+      font-size: 24px;
     }
     .answer-card-wrapper {
       display: flex;
+      .complete {
+        pointer-events: none;
+      }
+      .tag {
+        background: hwb(256 13% 22%);
+        padding: 2px 5px;
+        border-radius: 5px;
+        color: #fff !important;
+        font-size: 16px;
+        position: absolute;
+        right: 5px;
+        top: 4px;
+        font-weight: 100;
+        // height: 16px;
+        display: none;
+      }
+      .show {
+        display: block !important;
+      }
+      .none {
+        display: none;
+      }
       .card {
-        width: 150px;
+        width: 200px;
         height: 100px;
         background: yellow;
         margin: 0 20px;
@@ -90,6 +129,8 @@ const start = () => {
         justify-content: center;
         align-items: center;
         position: relative;
+        font-weight: bold;
+        font-size: 24px;
         img {
           position: absolute;
           right: 5px;

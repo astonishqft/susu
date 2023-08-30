@@ -43,10 +43,10 @@ const submitForm = (formEl) => {
         label-width="120px"
         class="register-form"
       >
-        <el-form-item label="班级名" prop="className" required>
+        <el-form-item class="label" label="班级名" prop="className" required>
           <el-input v-model="registerForm.className" autocomplete="off" />
         </el-form-item>
-        <el-form-item label="姓名" prop="userName" required>
+        <el-form-item class="label" label="姓名" prop="userName" required>
           <el-input v-model="registerForm.userName" autocomplete="off" />
         </el-form-item>
         <el-form-item>
@@ -59,6 +59,9 @@ const submitForm = (formEl) => {
   </div>
 </template>
 <style lang="less">
+:global(.el-form-item__label) {
+  color: #fff;
+}
 .register-wrapper {
   background: url(/home_bg.jpg) no-repeat;
   background-repeat: no-repeat;
@@ -67,6 +70,12 @@ const submitForm = (formEl) => {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  .label {
+    label {
+      color: #fff;
+      font-size: 24px;
+    }
+  }
   .title {
     height: 40px;
     color: #fff;

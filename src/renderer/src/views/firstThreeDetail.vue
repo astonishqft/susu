@@ -130,19 +130,29 @@ const instance = setInterval(() => {
 const router = useRouter()
 
 const goHome = () => {
-  router.push('/choose')
+  router.push('/home')
 }
 </script>
 <template>
   <div style="height: 100%" class="firstThreeDetail">
     <div class="title">
-      <div class="goHome" @click="goHome">回到首页</div>
+      <div class="goHome" @click="goHome">
+        <el-icon :title="返回首页"><HomeFilled /></el-icon>
+      </div>
       <div class="main-title">党史大闯关</div>
       <div class="sub-title">第三关·认真选</div>
     </div>
     <div class="tool">
-      <div class="time">倒计时：{{ currentTime }}</div>
-      <div class="error">错题数：{{ wrongCount }}</div>
+      <div class="time">
+        倒计时：<el-text class="mx-1" type="primary" size="large" tag="i">
+          {{ currentTime }}
+        </el-text>
+      </div>
+      <div class="error">
+        本关错题数：<el-text class="mx-1" type="warning" size="large" tag="b">
+          {{ wrongCount }}
+        </el-text>
+      </div>
     </div>
     <div class="content">
       <div class="subject">
@@ -203,8 +213,17 @@ const goHome = () => {
     align-items: center;
     color: #fff;
     height: 40px;
+    .goHome {
+      width: 33.33%;
+      margin-top: 15px;
+      margin-left: 15px;
+    }
     .sub-title {
-      font-size: 38px;
+      width: 33.33%;
+      display: flex;
+      justify-content: flex-end;
+      margin-right: 15px;
+      margin-right: 15px;
     }
   }
   .tool {
