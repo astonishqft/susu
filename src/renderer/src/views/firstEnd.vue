@@ -6,6 +6,8 @@ const store = useRegisterStore()
 
 const router = useRouter()
 const start = () => {
+  store.firstErrorCount = 0
+  store.firstComplete = true
   router.push('/choose')
 }
 
@@ -107,12 +109,12 @@ console.log('总的错题数', store.firstErrorCount)
       .title-main {
         font-size: 32px;
       }
-      .sub-title {
+      .title-sub {
         margin-top: 30px;
         font-size: 46px;
-        font-weight: bold;
         .award-name {
           color: red;
+          font-weight: bold;
         }
       }
     }

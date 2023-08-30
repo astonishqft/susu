@@ -9,6 +9,7 @@ const router = useRouter()
 onMounted(() => {
   // 首先清空错题数
   store.firstErrorCount = 0
+  store.firstComplete = false
 })
 
 const start = () => {

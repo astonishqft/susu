@@ -1,7 +1,10 @@
 <script setup>
 import { useRouter } from 'vue-router'
 import { ref } from 'vue'
+import { useRegisterStore } from '../stores/register'
 import selectIcon from '/select.png?url'
+
+const store = useRegisterStore()
 
 // '0' 或者 '1','0': 党史大闯关；'1': 少先队史大闯关
 const type = ref('0')
